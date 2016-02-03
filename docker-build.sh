@@ -2,5 +2,5 @@
 
 cp target/rest-user-service.jar target/classes/docker
 cd target/classes/docker
-docker rmi innoq-demo/rest-user-service:latest
-docker build --rm -t innoq-demo/rest-user-service:latest .
+sudo docker rmi devstation/rest-user-service:latest
+sudo docker build --rm -t devstation/rest-user-service:latest .
