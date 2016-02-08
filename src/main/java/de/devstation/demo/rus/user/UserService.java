@@ -27,7 +27,7 @@ public class UserService {
     return userRepository.findByName(name);
   }
 
-  public void storeUser(User user) throws UserExistsException {
+  public User storeUser(User user) throws UserExistsException {
     if (user.getId() != User.UNPERSISTED_USER_ID) {
       throw new UserExistsException("user is already persisted, update operation not supported");
     }
@@ -35,7 +35,7 @@ public class UserService {
       throw new UserExistsException("user with name=" + user.getName() + "exists");
     }
     user.setId(userRepository.nextId());
-    userRepository.storeNewUser(user);
+    return user;
   }
 
   public PasswordStrategy.UserPasswordCheckResult checkPassword(String password) {
