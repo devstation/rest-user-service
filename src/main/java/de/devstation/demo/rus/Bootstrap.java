@@ -1,7 +1,7 @@
 package de.devstation.demo.rus;
 
 import de.devstation.demo.rus.user.User;
-import de.devstation.demo.rus.user.UserRepository;
+import de.devstation.demo.rus.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,12 +12,12 @@ import javax.annotation.PostConstruct;
 public class Bootstrap {
 
   @Autowired
-  private UserRepository userRepository;
+  private UserService userService;
 
   @PostConstruct
-  public void fillInDummyData() {
-    userRepository.storeNewUser(new User("admin", "nimda"));
-    userRepository.storeNewUser(new User("user", "resu"));
+  public void fillInDummyData() throws UserService.UserExistsException {
+    userService.storeUser(new User("admin", "nimda"));
+    userService.storeUser(new User("user", "resu"));
   }
 
   public static void main(String[] args) throws Exception {

@@ -37,9 +37,9 @@ public class UserController {
     return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-  public HttpEntity<User> byName(@PathVariable String name) {
-    return new ResponseEntity<>(userService.getByName(name), HttpStatus.OK);
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public HttpEntity<User> byId(@PathVariable int id) {
+    return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/checkpassword", method = RequestMethod.POST)

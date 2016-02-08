@@ -2,6 +2,9 @@ package de.devstation.demo.rus.user;
 
 public class User {
 
+  public static int UNPERSISTED_USER_ID = -1;
+
+  private int id = UNPERSISTED_USER_ID;
   private String name;
   private String password;
 
@@ -11,6 +14,20 @@ public class User {
   public User(String name, String password) {
     this.name = name;
     this.password = password;
+  }
+
+  public User(int id, String name, String password) {
+    this.id = id;
+    this.name = name;
+    this.password = password;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getName() {
@@ -36,24 +53,26 @@ public class User {
 
     User user = (User) o;
 
-    if (name != null ? !name.equals(user.name) : user.name != null) return false;
-    return password != null ? password.equals(user.password) : user.password == null;
+    if (id != user.id) return false;
+    if (!name.equals(user.name)) return false;
+    return password.equals(user.password);
 
   }
 
   @Override
   public int hashCode() {
-    int result = name != null ? name.hashCode() : 0;
-    result = 31 * result + (password != null ? password.hashCode() : 0);
+    int result = id;
+    result = 31 * result + name.hashCode();
+    result = 31 * result + password.hashCode();
     return result;
   }
 
   @Override
   public String toString() {
     return "User{" +
-        "name='" + name + '\'' +
+        "id=" + id +
+        ", name='" + name + '\'' +
         ", password='" + password + '\'' +
         '}';
   }
-
 }

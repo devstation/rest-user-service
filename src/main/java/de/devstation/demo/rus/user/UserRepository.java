@@ -1,26 +1,43 @@
 package de.devstation.demo.rus.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class UserRepository {
 
-  private static final Map<String, User> users = new HashMap<>();
+  private static final Logger log = LoggerFactory.getLogger(UserRepository.class);
+
+  private static final Map<Integer, User> usersById = new HashMap<>();
+  private static final Map<String, User> usersByName = new HashMap<>();
+  private AtomicInteger nextId = new AtomicInteger(1);
 
   public Collection<User> getAllUsers() {
-    return users.values();
+    return usersById.values();
+  }
+
+  public User findById(int id) {
+    return usersById.get(id);
   }
 
   public User findByName(String name) {
-    return users.get(name);
+    return usersByName.get(name);
+  }
+
+  public int nextId() {
+    return nextId.getAndIncrement();
   }
 
   public void storeNewUser(User user) {
-    users.put(user.getName(), user);
+    log.info("user: {}", user);
+    usersById.put(user.getId(), user);
+    usersByName.put(user.getName(), user);
   }
 
 }

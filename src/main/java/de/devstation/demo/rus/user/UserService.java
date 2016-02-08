@@ -19,14 +19,22 @@ public class UserService {
     return userRepository.getAllUsers();
   }
 
+  public User getById(int id) {
+    return userRepository.findById(id);
+  }
+
   public User getByName(String name) {
     return userRepository.findByName(name);
   }
 
   public void storeUser(User user) throws UserExistsException {
+    if (user.getId() != User.UNPERSISTED_USER_ID) {
+      throw new UserExistsException("user is already persisted, update operation not supported");
+    }
     if (getByName(user.getName()) != null) {
       throw new UserExistsException("user with name=" + user.getName() + "exists");
     }
+    user.setId(userRepository.nextId());
     userRepository.storeNewUser(user);
   }
 
