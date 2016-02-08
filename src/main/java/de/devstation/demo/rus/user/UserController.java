@@ -29,8 +29,8 @@ public class UserController {
   @RequestMapping(value = "/", method = RequestMethod.POST)
   public HttpEntity<User> create(@RequestBody User user) {
     try {
-      userService.storeUser(user);
-      return new ResponseEntity<>(user, HttpStatus.CREATED);
+      User persistedUser = userService.storeUser(user);
+      return new ResponseEntity<>(persistedUser, HttpStatus.CREATED);
     } catch (UserService.UserExistsException e) {
       log.info("user creation failed", e);
       return new ResponseEntity<>(user, HttpStatus.BAD_REQUEST);
