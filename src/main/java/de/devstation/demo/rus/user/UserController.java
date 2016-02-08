@@ -21,6 +21,11 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @RequestMapping(value = "/reset", method = RequestMethod.GET)
+  public void reset() {
+    userService.reset();
+  }
+
   @RequestMapping(value = "/", method = RequestMethod.POST)
   public HttpEntity<String> create(@RequestBody User user) {
     try {

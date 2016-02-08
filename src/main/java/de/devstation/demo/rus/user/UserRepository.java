@@ -34,6 +34,15 @@ public class UserRepository {
     return nextId.getAndIncrement();
   }
 
+  public void resetId() {
+    nextId = new AtomicInteger(1);
+  }
+
+  public void clearUsers() {
+    usersById.clear();
+    usersByName.clear();
+  }
+
   public void storeNewUser(User user) {
     log.info("user: {}", user);
     usersById.put(user.getId(), user);

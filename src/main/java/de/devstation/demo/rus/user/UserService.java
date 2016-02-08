@@ -42,6 +42,11 @@ public class UserService {
     return passwordStrategy.checkPassword(password);
   }
 
+  public void reset() {
+    userRepository.clearUsers();
+    userRepository.resetId();
+  }
+
   public static class UserExistsException extends Exception {
 
     public UserExistsException(String message) {
