@@ -30,7 +30,7 @@ public class UserRepository {
     return usersByName.get(name);
   }
 
-  public int nextId() {
+  private int nextId() {
     return nextId.getAndIncrement();
   }
 
@@ -43,10 +43,14 @@ public class UserRepository {
     usersByName.clear();
   }
 
-  public void storeNewUser(User user) {
-    log.info("user: {}", user);
+  public User storeNewUser(User user) throws UserService.UserExistsException {
+    if (user.getId() != User.UNPERSISTED_USER_ID) {
+      throw new UserService.UserExistsException("user is already persisted, update operation not supported");
+    }
+    user.setId(nextId());
     usersById.put(user.getId(), user);
     usersByName.put(user.getName(), user);
+    return user;
   }
 
 }
