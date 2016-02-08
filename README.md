@@ -34,9 +34,9 @@ Following examples assume a local docker-machine ip of _192.168.99.100_ - you mi
 
     curl http://192.168.99.100:8080/user/
 
-#### get a specific user (here: "admin")
+#### get a specific user by _id_
 
-    curl http://192.168.99.100:8080/user/admin
+    curl http://192.168.99.100:8080/user/1
 
 #### check password strength
 
