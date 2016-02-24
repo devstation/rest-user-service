@@ -16,7 +16,7 @@ Afterwards the service can be dockered calling
 
 To start the container just run
 
-    ./docker.run.sh
+    ./docker-run.sh
 
 
 ## Start without Docker
